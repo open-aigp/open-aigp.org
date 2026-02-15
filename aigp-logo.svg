@@ -63,7 +63,7 @@
   </text>
 
   <!-- Subtitle -->
-  <text x="89" y="72" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="10.5" font-weight="800" letter-spacing="2.8" fill="#7C3AED">
+  <text x="89" y="73" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" font-weight="800" letter-spacing="2.2" fill="#7C3AED">
     AI GOVERNANCE PROOF
   </text>
 </svg>
