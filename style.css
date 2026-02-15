@@ -780,6 +780,12 @@ img { max-width: 100%; }
   font-size: 13px;
   color: var(--text-light);
 }
+.footer-disclaimer {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-light);
+  opacity: 0.7;
+}
 
 /* ============================================================
    Cryptographic Trust Section
