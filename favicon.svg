@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background: rounded square for modern feel, better edge clarity at small sizes -->
+  <rect x="4" y="4" width="112" height="112" rx="24" fill="url(#grad)"/>
+
+  <!-- Shield — bold, clean, no fine detail -->
+  <path
+    d="M60 22L28 38V56C28 74.5 41.6 91.2 60 96C78.4 91.2 92 74.5 92 56V38L60 22Z"
+    stroke="white"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="white"
+    fill-opacity="0.12"
+  />
+
+  <!-- Bold checkmark — the single recognizable mark -->
+  <path
+    d="M46 60L56 70L76 50"
+    stroke="white"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+</svg>

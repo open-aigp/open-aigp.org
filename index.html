@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIGP - AI Governance Proof</title>
+  <meta name="description" content="An open specification for capturing cryptographic proof of every AI agent governance action.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="aigp-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="aigp-logo.svg" alt="AIGP - AI Governance Proof" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="https://github.com/open-aigp/aigp/blob/main/spec/aigp-spec.md" target="_blank">Specification</a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank">Python SDK</a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/schema/aigp-event.schema.json" target="_blank">Schema</a>
+        <a href="https://github.com/open-aigp/aigp/discussions" target="_blank">Community</a>
+        <a href="https://github.com/open-aigp/aigp" target="_blank" class="nav-github">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </div>
+      <button class="nav-mobile-toggle" aria-label="Toggle menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Side Index -->
+  <aside class="side-index" id="side-index">
+    <nav class="side-index-nav">
+      <a href="#hero" class="side-index-link side-index-home" data-section="hero">Home</a>
+      <a href="#why" class="side-index-link" data-section="why">The Problem</a>
+      <a href="#quickstart" class="side-index-link" data-section="quickstart">The Solution</a>
+      <a href="#principles" class="side-index-link" data-section="principles">Design Principles</a>
+      <a href="#trust" class="side-index-link" data-section="trust">Cryptographic Trust</a>
+      <a href="#architecture" class="side-index-link" data-section="architecture">Architecture</a>
+      <a href="#events" class="side-index-link" data-section="events">Event Types</a>
+      <a href="#usecases" class="side-index-link" data-section="usecases">Use Cases</a>
+      <a href="#features" class="side-index-link" data-section="features">What's New</a>
+      <a href="#getstarted" class="side-index-link" data-section="getstarted">Get Started</a>
+      <a href="#contributing" class="side-index-link" data-section="contributing">Community</a>
+    </nav>
+  </aside>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Open Standard &middot; Apache 2.0 &middot; v0.8.0</div>
+      <h1>Cryptographic proof for<br>every AI governance action</h1>
+      <p class="hero-sub">AIGP is an open specification for structured, tamper-evident events that prove what policies, prompts, tools, and data governed your AI agents &mdash; every single time.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/open-aigp/aigp" target="_blank" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+        <a href="#quickstart" class="btn btn-secondary">Get Started</a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/spec/aigp-spec.md" target="_blank" class="btn btn-secondary">Read the Spec</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <section class="stats">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-number">31</span>
+        <span class="stat-label">Event Types</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">15</span>
+        <span class="stat-label">Categories</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">7</span>
+        <span class="stat-label">Resource Types</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Integrations</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section" id="why">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">The Problem</span>
+        <h2>AI agents are everywhere.<br>Audit trails aren't.</h2>
+        <p>Agents access company data, make decisions, and interact with customers. Regulators, auditors, and security teams all need to answer the same question:</p>
+      </div>
+      <blockquote class="callout">
+        "Prove your AI agents used the approved prompts, tools, and policies &mdash; every single time."
+      </blockquote>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg>
+          </div>
+          <h3>No common format</h3>
+          <p>Every team invents its own audit log. Grep through unstructured logs, build custom tables, or don't track it at all.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>No tamper evidence</h3>
+          <p>Logs can be edited after the fact. There's no cryptographic proof that the content delivered was what was approved.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>No traceability</h3>
+          <p>Which agent, which prompt version, which policy, what happened? Reconstructing the chain requires joining across five systems.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution / How It Works -->
+  <section class="section section-dark" id="quickstart">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">The Solution</span>
+        <h2>One JSON event. Cryptographic proof.</h2>
+        <p>An AIGP event is a single flat JSON record that captures proof of one governance action. Any system can produce them.</p>
+      </div>
+      <div class="code-showcase">
+        <div class="code-header">
+          <div class="code-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="code-filename">aigp-event.json</span>
+        </div>
+        <pre class="code-block"><code>{
+  <span class="ck">"event_id"</span>:          <span class="cv">"a1b2c3d4-e5f6-7890-abcd-ef1234567890"</span>,
+  <span class="ck">"event_type"</span>:        <span class="cv">"GOVERNANCE_PROOF"</span>,
+  <span class="ck">"event_category"</span>:    <span class="cv">"governance"</span>,
+  <span class="ck">"event_time"</span>:        <span class="cv">"2025-01-15T14:30:00.123Z"</span>,
+  <span class="ck">"agent_id"</span>:          <span class="cv">"agent.trading-bot-v2"</span>,
+  <span class="ck">"trace_id"</span>:          <span class="cv">"550e8400-e29b-41d4-a716-446655440000"</span>,
+  <span class="ck">"data_classification"</span>: <span class="cv">"confidential"</span>,
+
+  <span class="cc">// Cryptographic proof — Merkle root of all governed resources</span>
+  <span class="ck">"governance_hash"</span>:   <span class="cv">"a3f2b8c1d4e5...9012345678abcdef"</span>,
+  <span class="ck">"hash_type"</span>:         <span class="cv">"merkle-sha256"</span>,
+
+  <span class="cc">// Resources — governed, hashed, Merkle tree leaves</span>
+  <span class="cc">// 7 standard types: policy, prompt, tool, context, memory, model, lineage</span>
+  <span class="ck">"resources"</span>: [
+    { <span class="ck">"resource_type"</span>: <span class="cv">"policy"</span>,   <span class="ck">"resource_name"</span>: <span class="cv">"policy.trading-limits"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"a3f2b8c1..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
+    { <span class="ck">"resource_type"</span>: <span class="cv">"prompt"</span>,   <span class="ck">"resource_name"</span>: <span class="cv">"prompt.risk-analysis-v7"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"d4e5f678..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
+    { <span class="ck">"resource_type"</span>: <span class="cv">"tool"</span>,     <span class="ck">"resource_name"</span>: <span class="cv">"tool.position-checker"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"b7c8d9e0..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"pointer"</span>,
+      <span class="ck">"pointer_uri"</span>: <span class="cv">"s3://aigp-gov/sha256:b7c8d9e0..."</span> },
+    { <span class="ck">"resource_type"</span>: <span class="cv">"model"</span>,    <span class="ck">"resource_name"</span>: <span class="cv">"model.gpt4-trading-v2"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"e1f2a3b4..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
+    { <span class="ck">"resource_type"</span>: <span class="cv">"lineage"</span>,  <span class="ck">"resource_name"</span>: <span class="cv">"lineage.market-data-feed"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"c5d6e7f8..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
+
+    <span class="cc">// AI Agent-specific: what the agent remembers and its runtime context</span>
+    { <span class="ck">"resource_type"</span>: <span class="cv">"context"</span>,  <span class="ck">"resource_name"</span>: <span class="cv">"context.session-42"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"f9a0b1c2..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
+    { <span class="ck">"resource_type"</span>: <span class="cv">"memory"</span>,   <span class="ck">"resource_name"</span>: <span class="cv">"memory.conversation-history"</span>,
+      <span class="ck">"hash"</span>: <span class="cv">"d3e4f5a6..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"pointer"</span>,
+      <span class="ck">"pointer_uri"</span>: <span class="cv">"s3://aigp-gov/sha256:d3e4f5a6..."</span> }
+  ],
+
+  <span class="cc">// Annotations — informational, NOT hashed, NOT in the Merkle tree</span>
+  <span class="ck">"annotations"</span>: {
+    <span class="ck">"regulatory_framework"</span>: <span class="cv">"SEC Rule 15c3-5"</span>,
+    <span class="ck">"risk_tier"</span>:            <span class="cv">"high"</span>,
+    <span class="ck">"review_required"</span>:      <span class="cn">true</span>
+  },
+  <span class="ck">"spec_version"</span>:      <span class="cv">"0.8.0"</span>
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="section" id="principles">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Design Principles</span>
+        <h2>Built for the real world</h2>
+      </div>
+      <div class="principles-grid">
+        <div class="principle-card">
+          <div class="principle-number">01</div>
+          <h3>Open & protocol-agnostic</h3>
+          <p>Works with A2A, MCP, REST, gRPC, or anything else. The format doesn't assume a transport.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-number">02</div>
+          <h3>Tamper-evident by default</h3>
+          <p>Every event includes a SHA-256 governance_hash. If content changes, the hash won't match.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-number">03</div>
+          <h3>Traceable end-to-end</h3>
+          <p>Every event carries a trace_id. One query reconstructs the full governance chain.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-number">04</div>
+          <h3>Flat & queryable</h3>
+          <p>Single wide event table &mdash; no joins for governance queries. Designed for OLAP stores.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-number">05</div>
+          <h3>Forward-compatible</h3>
+          <p>Resources (governed, hashed) and Annotations (informational). Open types &mdash; extend without a spec change.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-number">06</div>
+          <h3>Cryptographically signed</h3>
+          <p>JWS ES256 event signing for non-repudiation. Causal ordering with sequence numbers and DAG references.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cryptographic Trust -->
+  <section class="section section-dark" id="trust">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Cryptographic Trust</span>
+        <h2>Merkle trees meet governance proof</h2>
+        <p>AIGP doesn't just log what happened &mdash; it produces cryptographic evidence that nothing was altered after the fact.</p>
+      </div>
+      <div class="trust-layout">
+        <div class="trust-visual">
+          <!-- Merkle Tree SVG Illustration — 7 standard resource types -->
+          <svg class="merkle-tree-svg" viewBox="0 0 540 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Level 2→1 lines -->
+            <line x1="270" y1="52" x2="140" y2="108" stroke="#6366f1" stroke-width="1.5" opacity="0.4"/>
+            <line x1="270" y1="52" x2="400" y2="108" stroke="#6366f1" stroke-width="1.5" opacity="0.4"/>
+            <!-- Level 1→0 lines (left branch) -->
+            <line x1="140" y1="140" x2="72" y2="200" stroke="#6366f1" stroke-width="1.2" opacity="0.3"/>
+            <line x1="140" y1="140" x2="210" y2="200" stroke="#6366f1" stroke-width="1.2" opacity="0.3"/>
+            <!-- Level 1→0 lines (right branch) -->
+            <line x1="400" y1="140" x2="330" y2="200" stroke="#6366f1" stroke-width="1.2" opacity="0.3"/>
+            <line x1="400" y1="140" x2="470" y2="200" stroke="#6366f1" stroke-width="1.2" opacity="0.3"/>
+            <!-- Sub-leaf lines from H(A) -->
+            <line x1="72" y1="232" x2="38" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+            <line x1="72" y1="232" x2="108" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+            <!-- Sub-leaf lines from H(B) -->
+            <line x1="210" y1="232" x2="176" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+            <line x1="210" y1="232" x2="244" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+            <!-- Sub-leaf lines from H(C) -->
+            <line x1="330" y1="232" x2="296" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+            <line x1="330" y1="232" x2="364" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+            <!-- Single leaf from H(D) — memory is the sole child -->
+            <line x1="470" y1="232" x2="470" y2="278" stroke="#6366f1" stroke-width="1" opacity="0.25"/>
+
+            <!-- Root node -->
+            <rect x="224" y="16" width="92" height="40" rx="8" fill="#4f46e5"/>
+            <text x="270" y="41" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">Root Hash</text>
+            <!-- Checkmark badge -->
+            <circle cx="290" cy="22" r="9" fill="#10b981"/>
+            <path d="M286 22L289 25L295 19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+            <!-- Level 1 intermediate nodes -->
+            <rect x="92" y="104" width="96" height="38" rx="7" fill="#6366f1" opacity="0.85"/>
+            <text x="140" y="128" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="8">H(Governance)</text>
+
+            <rect x="352" y="104" width="96" height="38" rx="7" fill="#6366f1" opacity="0.85"/>
+            <text x="400" y="128" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="8">H(Agent State)</text>
+
+            <!-- Level 0.5 intermediate nodes -->
+            <rect x="32" y="200" width="80" height="34" rx="6" fill="#818cf8" opacity="0.7"/>
+            <text x="72" y="221" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="7.5">H(Policy+Prompt)</text>
+
+            <rect x="170" y="200" width="80" height="34" rx="6" fill="#818cf8" opacity="0.7"/>
+            <text x="210" y="221" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="7.5">H(Tool+Model)</text>
+
+            <rect x="290" y="200" width="80" height="34" rx="6" fill="#818cf8" opacity="0.7"/>
+            <text x="330" y="221" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="7.5">H(Lineage+Ctx)</text>
+
+            <rect x="430" y="200" width="80" height="34" rx="6" fill="#818cf8" opacity="0.7"/>
+            <text x="470" y="221" text-anchor="middle" fill="white" font-family="JetBrains Mono, monospace" font-size="7.5">H(Memory)</text>
+
+            <!-- Leaf nodes — 7 standard resource types -->
+            <!-- Policy -->
+            <rect x="6" y="276" width="64" height="42" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+            <text x="38" y="293" text-anchor="middle" fill="#4f46e5" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">policy</text>
+            <text x="38" y="308" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="6">a3f2b8c1...</text>
+
+            <!-- Prompt -->
+            <rect x="76" y="276" width="64" height="42" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+            <text x="108" y="293" text-anchor="middle" fill="#4f46e5" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">prompt</text>
+            <text x="108" y="308" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="6">d4e5f678...</text>
+
+            <!-- Tool -->
+            <rect x="146" y="276" width="64" height="42" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+            <text x="178" y="293" text-anchor="middle" fill="#4f46e5" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">tool</text>
+            <text x="178" y="308" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="6">b7c8d9e0...</text>
+
+            <!-- Model -->
+            <rect x="216" y="276" width="64" height="42" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+            <text x="248" y="293" text-anchor="middle" fill="#4f46e5" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">model</text>
+            <text x="248" y="308" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="6">e1f2a3b4...</text>
+
+            <!-- Lineage -->
+            <rect x="286" y="276" width="64" height="42" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+            <text x="318" y="293" text-anchor="middle" fill="#4f46e5" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">lineage</text>
+            <text x="318" y="308" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="6">c5d6e7f8...</text>
+
+            <!-- Context — AI Agent callout -->
+            <rect x="356" y="276" width="64" height="42" rx="5" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+            <text x="388" y="293" text-anchor="middle" fill="#7c3aed" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">context</text>
+            <text x="388" y="308" text-anchor="middle" fill="#a78bfa" font-family="JetBrains Mono, monospace" font-size="6">f9a0b1c2...</text>
+
+            <!-- Memory — AI Agent callout -->
+            <rect x="438" y="276" width="64" height="42" rx="5" fill="#faf5ff" stroke="#c4b5fd" stroke-width="1.5"/>
+            <text x="470" y="293" text-anchor="middle" fill="#7c3aed" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="600">memory</text>
+            <text x="470" y="308" text-anchor="middle" fill="#a78bfa" font-family="JetBrains Mono, monospace" font-size="6">d3e4f5a6...</text>
+
+            <!-- AI Agent badge for context+memory -->
+            <rect x="359" y="322" width="140" height="18" rx="9" fill="#7c3aed" opacity="0.1"/>
+            <text x="429" y="335" text-anchor="middle" fill="#7c3aed" font-family="system-ui, sans-serif" font-size="7.5" font-weight="600">AI Agent-specific</text>
+
+            <!-- governance_hash label -->
+            <rect x="185" y="352" width="170" height="24" rx="12" fill="#4f46e5" opacity="0.1"/>
+            <text x="270" y="368" text-anchor="middle" fill="#4f46e5" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600">governance_hash</text>
+          </svg>
+        </div>
+        <div class="trust-content">
+          <div class="trust-item">
+            <div class="trust-item-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div>
+              <h4>Merkle tree hashing</h4>
+              <p>Each governed resource &mdash; policy, prompt, tool definition, agent config &mdash; is hashed individually. Parent hashes combine children. The root becomes the <code>governance_hash</code> on every AIGP event.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div>
+              <h4>JWS event signing</h4>
+              <p>Every event is signed with ES256 (ECDSA P-256) via JWS Compact Serialization. The signer's key is embedded in the event &mdash; consumers verify independently.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <h4>Causal DAG ordering</h4>
+              <p>Monotonic <code>sequence_number</code> per agent and <code>causality_ref</code> pointers create a directed acyclic graph &mdash; no event can be inserted or reordered without breaking the chain.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <h4>Tamper detection</h4>
+              <p>Change one byte of a governed policy and the Merkle root changes. The <code>governance_hash</code> in the audit trail won't match &mdash; evidence of tampering is immediate and undeniable.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Pillars -->
+  <section class="section" id="architecture">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Architecture</span>
+        <h2>Three standards. Three concerns. One trace_id.</h2>
+        <p>AIGP composes with OpenTelemetry and OpenLineage &mdash; they don't compete.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-icon pillar-aigp">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>AIGP</h3>
+          <p class="pillar-role">AI Governance</p>
+          <p>Cryptographic proof, enforcement decisions, audit trail, compliance evidence</p>
+          <span class="pillar-dest">AI Governance Store</span>
+        </div>
+        <div class="pillar-connector">
+          <svg width="40" height="24" viewBox="0 0 40 24"><line x1="0" y1="12" x2="40" y2="12" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4"/></svg>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon pillar-otel">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>OpenTelemetry</h3>
+          <p class="pillar-role">Observability</p>
+          <p>Agent latency, error rates, trace topology, distributed context propagation</p>
+          <span class="pillar-dest">Observability Backend</span>
+        </div>
+        <div class="pillar-connector">
+          <svg width="40" height="24" viewBox="0 0 40 24"><line x1="0" y1="12" x2="40" y2="12" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4"/></svg>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon pillar-ol">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>OpenLineage</h3>
+          <p class="pillar-role">Data Lineage</p>
+          <p>What data flowed where, governed by what, Merkle tree facets, lineage snapshots</p>
+          <span class="pillar-dest">Lineage Backend</span>
+        </div>
+      </div>
+      <div class="trace-id-bar">
+        <code>trace_id: "550e8400-e29b-41d4-a716-446655440000"</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Types -->
+  <section class="section" id="events">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Event Types</span>
+        <h2>31 standard events across 15 categories</h2>
+        <p>Implementations may extend these using the same RESOURCE_ACTION naming convention.</p>
+      </div>
+      <div class="events-grid">
+        <div class="event-category">
+          <h4>Policy Injection</h4>
+          <div class="event-tags">
+            <code>INJECT_SUCCESS</code>
+            <code>INJECT_DENIED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Prompt Usage</h4>
+          <div class="event-tags">
+            <code>PROMPT_USED</code>
+            <code>PROMPT_DENIED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Agent Lifecycle</h4>
+          <div class="event-tags">
+            <code>AGENT_REGISTERED</code>
+            <code>AGENT_APPROVED</code>
+            <code>AGENT_DEACTIVATED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Inference</h4>
+          <div class="event-tags">
+            <code>INFERENCE_STARTED</code>
+            <code>INFERENCE_COMPLETED</code>
+            <code>INFERENCE_BLOCKED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Memory</h4>
+          <div class="event-tags">
+            <code>MEMORY_READ</code>
+            <code>MEMORY_WRITTEN</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Tool</h4>
+          <div class="event-tags">
+            <code>TOOL_INVOKED</code>
+            <code>TOOL_DENIED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Human-in-the-Loop</h4>
+          <div class="event-tags">
+            <code>HUMAN_OVERRIDE</code>
+            <code>HUMAN_APPROVAL</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Boundary</h4>
+          <div class="event-tags">
+            <code>UNVERIFIED_BOUNDARY</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Model</h4>
+          <div class="event-tags">
+            <code>MODEL_LOADED</code>
+            <code>MODEL_SWITCHED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Policy Lifecycle</h4>
+          <div class="event-tags">
+            <code>POLICY_CREATED</code>
+            <code>POLICY_VERSION_APPROVED</code>
+            <code>POLICY_ARCHIVED</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>Governance Proof</h4>
+          <div class="event-tags">
+            <code>GOVERNANCE_PROOF</code>
+            <code>POLICY_VIOLATION</code>
+          </div>
+        </div>
+        <div class="event-category">
+          <h4>More</h4>
+          <div class="event-tags">
+            <code>A2A_CALL</code>
+            <code>CONTEXT_CAPTURED</code>
+            <code>LINEAGE_SNAPSHOT</code>
+            <code>CLASSIFICATION_CHANGED</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="section section-dark" id="usecases">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Use Cases</span>
+        <h2>Built for regulated industries</h2>
+      </div>
+      <div class="usecases-grid">
+        <div class="usecase-card">
+          <div class="usecase-icon">$</div>
+          <h3>Financial Services</h3>
+          <p>Prove trading agents accessed approved limits. MNPI controls enforced.</p>
+          <span class="usecase-regs">SEC &middot; FINRA &middot; MiFID II</span>
+        </div>
+        <div class="usecase-card">
+          <div class="usecase-icon">+</div>
+          <h3>Healthcare</h3>
+          <p>Audit patient-facing agents for HIPAA-compliant consent and PHI access controls.</p>
+          <span class="usecase-regs">HIPAA &middot; HITECH &middot; FDA</span>
+        </div>
+        <div class="usecase-card">
+          <div class="usecase-icon">&sect;</div>
+          <h3>Legal</h3>
+          <p>Track which contract agents used which prompt versions and privilege rules.</p>
+          <span class="usecase-regs">ABA Model Rules &middot; GDPR Art. 22</span>
+        </div>
+        <div class="usecase-card">
+          <div class="usecase-icon">&para;</div>
+          <h3>Enterprise AI</h3>
+          <p>Single audit trail across all AI agents for your CISO and compliance team.</p>
+          <span class="usecase-regs">SOC 2 &middot; ISO 27001 &middot; NIST AI RMF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- v0.8.0 Features -->
+  <section class="section" id="features">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">What's New</span>
+        <h2>v0.8.0 &mdash; Production Readiness</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3>Event Signing</h3>
+          <p>JWS Compact Serialization (RFC 7515) with ES256 for cryptographic non-repudiation and key rotation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          </div>
+          <h3>Causal Ordering</h3>
+          <p>Monotonic sequence_number per agent and causality_ref DAG for cross-agent event dependencies.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3>Dark Node Boundary</h3>
+          <p>UNVERIFIED_BOUNDARY event makes trust boundaries explicit when agents interact with ungoverned systems.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>Pointer Pattern</h3>
+          <p>Govern large or external content by hashing a URI pointer instead of the full payload.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Started -->
+  <section class="section section-dark" id="getstarted">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Get Started</span>
+        <h2>Five lines to your first governance event</h2>
+      </div>
+      <div class="code-showcase">
+        <div class="code-header">
+          <div class="code-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="code-filename">quickstart.py</span>
+        </div>
+        <pre class="code-block"><code><span class="cc">from</span> aigp_otel <span class="cc">import</span> AIGPInstrumentor
+
+instrumentor = AIGPInstrumentor(
+    agent_id=<span class="cv">"agent.trading-bot-v2"</span>,
+    org_id=<span class="cv">"org.finco"</span>,
+    event_callback=send_to_store,
+)
+
+event = instrumentor.inject_success(
+    policy_name=<span class="cv">"policy.trading-limits"</span>,
+    policy_version=<span class="cn">4</span>,
+    content=<span class="cv">"Max position: $10M..."</span>,
+    data_classification=<span class="cv">"confidential"</span>,
+)
+<span class="cc"># -> AIGP event sent to governance store</span>
+<span class="cc"># -> OTel span event with aigp.* attributes</span></code></pre>
+      </div>
+      <div class="getstarted-actions">
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank" class="btn btn-primary">Python SDK</a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/examples" target="_blank" class="btn btn-secondary">Example Events</a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/schema/aigp-event.schema.json" target="_blank" class="btn btn-secondary">JSON Schema</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contributing -->
+  <section class="section" id="contributing">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Community</span>
+        <h2>AI governance is too important to be owned by any single company</h2>
+        <p>AIGP is shared under Apache 2.0. The right format will emerge from real-world use across different industries and regulatory regimes.</p>
+      </div>
+      <div class="contribute-grid">
+        <a href="https://github.com/open-aigp/aigp/issues" target="_blank" class="contribute-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <h3>Report Issues</h3>
+          <p>Found a gap in the schema? Open an issue.</p>
+        </a>
+        <a href="https://github.com/open-aigp/aigp/discussions" target="_blank" class="contribute-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <h3>Discuss</h3>
+          <p>Propose new event types or challenge the design.</p>
+        </a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/CONTRIBUTING.md" target="_blank" class="contribute-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <h3>Contribute</h3>
+          <p>Build a Go producer, Rust consumer, or Spark connector.</p>
+        </a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/spec/aigp-spec.md" target="_blank" class="contribute-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <h3>Read the Spec</h3>
+          <p>The complete formal specification, versioned and open.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="aigp-logo.svg" alt="AIGP" class="footer-logo-img">
+        <p>AI Governance Proof &mdash; an open specification by the <a href="https://github.com/open-aigp">Open AIGP Project</a>.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Specification</h4>
+          <a href="https://github.com/open-aigp/aigp/blob/main/spec/aigp-spec.md" target="_blank">Full Spec</a>
+          <a href="https://github.com/open-aigp/aigp/blob/main/schema/aigp-event.schema.json" target="_blank">JSON Schema</a>
+          <a href="https://github.com/open-aigp/aigp/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Integrations</h4>
+          <a href="https://github.com/open-aigp/aigp/tree/main/integrations/opentelemetry" target="_blank">OpenTelemetry</a>
+          <a href="https://github.com/open-aigp/aigp/tree/main/integrations/openlineage" target="_blank">OpenLineage</a>
+          <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank">Python SDK</a>
+        </div>
+        <div class="footer-col">
+          <h4>Community</h4>
+          <a href="https://github.com/open-aigp/aigp" target="_blank">GitHub</a>
+          <a href="https://github.com/open-aigp/aigp/discussions" target="_blank">Discussions</a>
+          <a href="https://github.com/open-aigp/aigp/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="https://github.com/open-aigp/aigp/blob/main/LICENSE" target="_blank">Apache 2.0</a>
+          <a href="https://github.com/open-aigp/aigp/blob/main/TRADEMARK.md" target="_blank">Trademark</a>
+          <a href="https://github.com/open-aigp/aigp/blob/main/GOVERNANCE.md" target="_blank">Governance</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Open AIGP Contributors. Licensed under Apache 2.0.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    document.querySelector('.nav-mobile-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    // Side index — highlight current section on scroll
+    (function() {
+      const links = document.querySelectorAll('.side-index-link');
+      const sections = [];
+      links.forEach(link => {
+        const id = link.getAttribute('data-section');
+        const el = document.getElementById(id);
+        if (el) sections.push({ id, el, link });
+      });
+
+      function updateActive() {
+        const scrollY = window.scrollY + 120;
+        let current = null;
+        for (const s of sections) {
+          if (s.el.offsetTop <= scrollY) current = s;
+        }
+        links.forEach(l => l.classList.remove('active'));
+        if (current) current.link.classList.add('active');
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    })();
+  </script>
+</body>
+</html>
