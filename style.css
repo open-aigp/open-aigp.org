@@ -52,7 +52,7 @@ img { max-width: 100%; }
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -64,7 +64,7 @@ img { max-width: 100%; }
   font-weight: 700;
 }
 .nav-logo-img {
-  height: 48px;
+  height: 56px;
   width: auto;
 }
 .logo-mark {
