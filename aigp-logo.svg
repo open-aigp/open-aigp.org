@@ -23,10 +23,11 @@
     <path
       d="M12 2L3.5 6.5V11.5C3.5 16.45 7.14 21.03 12 22C16.86 21.03 20.5 16.45 20.5 11.5V6.5L12 2Z"
       stroke="url(#aigp-shield-grad)"
-      stroke-width="1.5"
+      stroke-width="0.8"
       stroke-linecap="round"
       stroke-linejoin="round"
       fill="none"
+      opacity="0.6"
     />
     <!-- Central agent node -->
     <circle cx="12" cy="11" r="2.2" fill="url(#aigp-shield-grad)" opacity="0.9" />
@@ -62,7 +63,7 @@
   </text>
 
   <!-- Subtitle -->
-  <text x="89" y="72" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="9.5" font-weight="500" letter-spacing="2.5" fill="#8B5CF6" text-transform="uppercase">
+  <text x="89" y="72" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="10.5" font-weight="700" letter-spacing="2.8" fill="#3F3F46">
     AI GOVERNANCE PROOF
   </text>
 </svg>
