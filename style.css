@@ -484,10 +484,6 @@ img { max-width: 100%; }
   gap: 16px;
   margin-bottom: 16px;
 }
-.composable-shield-svg {
-  filter: drop-shadow(0 4px 12px rgba(124, 58, 237, 0.2));
-  flex-shrink: 0;
-}
 .composable-banner-aigp {
   font-size: clamp(28px, 3.5vw, 40px);
   font-weight: 800;
