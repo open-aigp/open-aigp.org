@@ -1033,20 +1033,21 @@ img { max-width: 100%; }
 /* ============================================================
    Responsive
    ============================================================ */
-/* Keep the floating side index only when there is enough horizontal room.
-   On wide desktops, slightly narrow core content to preserve a clear gutter. */
-@media (min-width: 1601px) {
+/* Keep the floating side index on desktop and reserve a left gutter so content
+   never renders underneath it. */
+@media (min-width: 1025px) {
+  .nav-inner,
+  .stats-inner,
+  .hero-inner,
   .section-inner,
   .footer-inner {
-    max-width: 1080px;
+    margin-left: max(280px, calc((100vw - 1200px) / 2));
+    margin-right: auto;
   }
 }
 
-@media (max-width: 1600px) {
-  .side-index { display: none; }
-}
-
 @media (max-width: 1024px) {
+  .side-index { display: none; }
   .sdk-strip { grid-template-columns: repeat(3, 1fr); }
   .events-grid { grid-template-columns: repeat(3, 1fr); }
   .usecases-grid { grid-template-columns: repeat(2, 1fr); }
