@@ -221,7 +221,7 @@ img { max-width: 100%; }
   top: 50%;
   transform: translateY(-50%);
   z-index: 90;
-  padding: 16px 0 16px 12px;
+  padding: 16px 0 16px 8px;
 }
 .side-index-nav {
   display: flex;
@@ -232,21 +232,22 @@ img { max-width: 100%; }
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(124,58,237,0.12);
   border-radius: var(--radius-lg);
-  padding: 14px 18px 14px 18px;
+  width: 230px;
+  padding: 12px;
   box-shadow: 0 4px 24px rgba(124,58,237,0.06), var(--shadow);
 }
 .side-index-link {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
   color: #7e6b99;
-  padding: 7px 14px 7px 14px;
+  padding: 7px 10px;
   border-left: 2px solid transparent;
   border-radius: var(--radius-sm);
   transition: all 0.15s;
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
 }
 .si-icon {
   width: 16px;
@@ -1032,7 +1033,16 @@ img { max-width: 100%; }
 /* ============================================================
    Responsive
    ============================================================ */
-@media (max-width: 1280px) {
+/* Keep the floating side index only when there is enough horizontal room.
+   On wide desktops, slightly narrow core content to preserve a clear gutter. */
+@media (min-width: 1601px) {
+  .section-inner,
+  .footer-inner {
+    max-width: 1080px;
+  }
+}
+
+@media (max-width: 1600px) {
   .side-index { display: none; }
 }
 
