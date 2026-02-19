@@ -74,10 +74,20 @@
     </div>
   </nav>
 
+  <!-- Side Index -->
+  <aside class="side-index" id="side-index">
+    <nav class="side-index-nav">
+      <a href="#hero" class="side-index-link side-index-home active" data-section="hero"><svg class="si-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l6-5.5L14 8"/><path d="M3.5 6.5v7h3.25V10h2.5v3.5h3.25v-7"/></svg>Home</a>
+      <a href="#participate" class="side-index-link" data-section="participate"><svg class="si-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4.5H8L6.5 3H2v10h12V4.5z"/></svg>Participate</a>
+      <a href="#priorities" class="side-index-link" data-section="priorities"><svg class="si-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5H3.5v13h9V5L9 1.5z"/><polyline points="9,1.5 9,5 12.5,5"/><line x1="5.5" y1="8" x2="10.5" y2="8"/><line x1="5.5" y1="10.5" x2="8.5" y2="10.5"/></svg>Priorities</a>
+      <a href="#contact" class="side-index-link" data-section="contact"><svg class="si-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="5.5" r="2.5"/><circle cx="10.5" cy="5.5" r="2.5"/><path d="M1.5 14c0-2.2 1.8-4 4-4 .6 0 1.2.1 1.7.4M14.5 14c0-2.2-1.8-4-4-4-.6 0-1.2.1-1.7.4"/></svg>Contact</a>
+    </nav>
+  </aside>
+
   <section class="hero" id="hero">
     <div class="hero-inner">
       <div class="hero-badge">Open Standard &middot; Community Hub</div>
-      <h1>Build The AIGP Standard<br>Together</h1>
+      <h1>Let's build the AIGP standard<br>together</h1>
       <p class="hero-sub">AIGP is community-governed. Use this hub to discuss proposals, report gaps, and contribute improvements across spec, SDKs, and governance tooling.</p>
       <div class="hero-actions">
         <a href="https://github.com/open-aigp/aigp/discussions" target="_blank" class="btn btn-primary">Join Discussions</a>
@@ -88,7 +98,7 @@
     </div>
   </section>
 
-  <section class="section section-dark">
+  <section class="section section-dark" id="participate">
     <div class="section-inner">
       <div class="section-header">
         <span class="section-tag">Participate</span>
@@ -174,7 +184,7 @@
     </div>
   </section>
 
-  <footer class="footer">
+  <footer class="footer" id="contact">
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="aigp-logo.svg" alt="AIGP" class="footer-logo-img">
@@ -248,6 +258,31 @@
         if (event.key === 'Escape') closeDropdown();
       });
     }
+
+    // Side index — highlight current section on scroll
+    (function() {
+      const links = document.querySelectorAll('.side-index-link');
+      const sections = [];
+      links.forEach(link => {
+        const id = link.getAttribute('data-section');
+        const el = document.getElementById(id);
+        if (el) sections.push({ el, link });
+      });
+      if (!sections.length) return;
+
+      function updateActive() {
+        const scrollY = window.scrollY + 120;
+        let current = sections[0];
+        for (const section of sections) {
+          if (section.el.offsetTop <= scrollY) current = section;
+        }
+        links.forEach(link => link.classList.remove('active'));
+        if (current) current.link.classList.add('active');
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    })();
   </script>
 </body>
 </html>
