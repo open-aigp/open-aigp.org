@@ -151,7 +151,7 @@
       <div class="section-header">
         <span class="section-tag">The Solution</span>
         <h2>One JSON event. Cryptographic proof.</h2>
-        <p>An AIGP event is a single flat JSON record that captures proof of one governance action. Any system can produce them.</p>
+        <p>An AIGP event is a single JSON record that captures proof of one governance action, including selective Merkle inclusion verification.</p>
       </div>
       <div class="code-showcase">
         <div class="code-header">
@@ -160,50 +160,62 @@
           </div>
           <span class="code-filename">aigp-event.json</span>
         </div>
-        <pre class="code-block"><code>{
-  <span class="ck">"event_id"</span>:          <span class="cv">"a1b2c3d4-e5f6-7890-abcd-ef1234567890"</span>,
-  <span class="ck">"event_type"</span>:        <span class="cv">"GOVERNANCE_PROOF"</span>,
-  <span class="ck">"event_category"</span>:    <span class="cv">"governance"</span>,
-  <span class="ck">"event_time"</span>:        <span class="cv">"2025-01-15T14:30:00.123Z"</span>,
-  <span class="ck">"agent_id"</span>:          <span class="cv">"agent.trading-bot-v2"</span>,
-  <span class="ck">"trace_id"</span>:          <span class="cv">"550e8400-e29b-41d4-a716-446655440000"</span>,
-  <span class="ck">"data_classification"</span>: <span class="cv">"confidential"</span>,
-
-  <span class="cc">// Cryptographic proof — Merkle root of all governed resources</span>
-  <span class="ck">"governance_hash"</span>:   <span class="cv">"a3f2b8c1d4e5...9012345678abcdef"</span>,
-  <span class="ck">"hash_type"</span>:         <span class="cv">"merkle-sha256"</span>,
-
-  <span class="cc">// Resources — governed, hashed, Merkle tree leaves</span>
-  <span class="cc">// 7 standard types: policy, prompt, tool, context, memory, model, lineage</span>
-  <span class="ck">"resources"</span>: [
-    { <span class="ck">"resource_type"</span>: <span class="cv">"policy"</span>,   <span class="ck">"resource_name"</span>: <span class="cv">"policy.trading-limits"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"a3f2b8c1..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
-    { <span class="ck">"resource_type"</span>: <span class="cv">"prompt"</span>,   <span class="ck">"resource_name"</span>: <span class="cv">"prompt.risk-analysis-v7"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"d4e5f678..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
-    { <span class="ck">"resource_type"</span>: <span class="cv">"tool"</span>,     <span class="ck">"resource_name"</span>: <span class="cv">"tool.position-checker"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"b7c8d9e0..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"pointer"</span>,
-      <span class="ck">"pointer_uri"</span>: <span class="cv">"s3://aigp-gov/sha256:b7c8d9e0..."</span> },
-    { <span class="ck">"resource_type"</span>: <span class="cv">"model"</span>,    <span class="ck">"resource_name"</span>: <span class="cv">"model.gpt4-trading-v2"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"e1f2a3b4..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
-    { <span class="ck">"resource_type"</span>: <span class="cv">"lineage"</span>,  <span class="ck">"resource_name"</span>: <span class="cv">"lineage.market-data-feed"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"c5d6e7f8..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
-
-    <span class="cc">// AI Agent-specific: what the agent remembers and its runtime context</span>
-    { <span class="ck">"resource_type"</span>: <span class="cv">"context"</span>,  <span class="ck">"resource_name"</span>: <span class="cv">"context.session-42"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"f9a0b1c2..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"content"</span> },
-    { <span class="ck">"resource_type"</span>: <span class="cv">"memory"</span>,   <span class="ck">"resource_name"</span>: <span class="cv">"memory.conversation-history"</span>,
-      <span class="ck">"hash"</span>: <span class="cv">"d3e4f5a6..."</span>,  <span class="ck">"hash_mode"</span>: <span class="cv">"pointer"</span>,
-      <span class="ck">"pointer_uri"</span>: <span class="cv">"s3://aigp-gov/sha256:d3e4f5a6..."</span> }
-  ],
-
-  <span class="cc">// Annotations — informational, NOT hashed, NOT in the Merkle tree</span>
-  <span class="ck">"annotations"</span>: {
-    <span class="ck">"regulatory_framework"</span>: <span class="cv">"SEC Rule 15c3-5"</span>,
-    <span class="ck">"risk_tier"</span>:            <span class="cv">"high"</span>,
-    <span class="ck">"review_required"</span>:      <span class="cn">true</span>
-  },
-  <span class="ck">"spec_version"</span>:      <span class="cv">"0.10.0"</span>
-}</code></pre>
+        <pre class="code-block"><code><span class="cp">{</span>
+  <span class="ck">"event_id"</span><span class="cp">:</span> <span class="cv">"a1b2c3d4-e5f6-7890-abcd-ef1234567890"</span><span class="cp">,</span>
+  <span class="ck">"event_type"</span><span class="cp">:</span> <span class="cv">"GOVERNANCE_PROOF"</span><span class="cp">,</span>
+  <span class="ck">"event_category"</span><span class="cp">:</span> <span class="cv">"governance-proof"</span><span class="cp">,</span>
+  <span class="ck">"event_time"</span><span class="cp">:</span> <span class="cv">"2026-02-19T14:30:00.123Z"</span><span class="cp">,</span>
+  <span class="ck">"agent_id"</span><span class="cp">:</span> <span class="cv">"agent.trading-bot-v2"</span><span class="cp">,</span>
+  <span class="ck">"trace_id"</span><span class="cp">:</span> <span class="cv">"4bf92f3577b34da6a3ce929d0e0e4736"</span><span class="cp">,</span>
+  <span class="ck">"data_classification"</span><span class="cp">:</span> <span class="cv">"confidential"</span><span class="cp">,</span>
+  <span class="ck">"governance_hash"</span><span class="cp">:</span> <span class="cv">"8dd4648db4f94db951f83bb70fa7b575533912f4fd3219d161384df2b8d523ec"</span><span class="cp">,</span>
+  <span class="ck">"hash_type"</span><span class="cp">:</span> <span class="cv">"merkle-sha256"</span><span class="cp">,</span>
+  <span class="ck">"governance_merkle_tree"</span><span class="cp">:</span> <span class="cp">{</span>
+    <span class="ck">"algorithm"</span><span class="cp">:</span> <span class="cv">"sha256"</span><span class="cp">,</span>
+    <span class="ck">"leaf_count"</span><span class="cp">:</span> <span class="cn">3</span><span class="cp">,</span>
+    <span class="ck">"leaves"</span><span class="cp">:</span> <span class="cp">[</span>
+      <span class="cp">{</span>
+        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"policy"</span><span class="cp">,</span>
+        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"policy.trading-limits"</span><span class="cp">,</span>
+        <span class="ck">"hash"</span><span class="cp">:</span> <span class="cv">"2a7b9c1d4e5f67890abcdef1234567890abcdef1234567890abcdef12345678"</span>
+      <span class="cp">},</span>
+      <span class="cp">{</span>
+        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"prompt"</span><span class="cp">,</span>
+        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"prompt.risk-analysis-v7"</span><span class="cp">,</span>
+        <span class="ck">"hash"</span><span class="cp">:</span> <span class="cv">"5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f"</span>
+      <span class="cp">},</span>
+      <span class="cp">{</span>
+        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"tool"</span><span class="cp">,</span>
+        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"tool.position-checker"</span><span class="cp">,</span>
+        <span class="ck">"hash"</span><span class="cp">:</span> <span class="cv">"9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"</span><span class="cp">,</span>
+        <span class="ck">"hash_mode"</span><span class="cp">:</span> <span class="cv">"pointer"</span><span class="cp">,</span>
+        <span class="ck">"content_ref"</span><span class="cp">:</span> <span class="cv">"s3://aigp-gov/sha256:9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"</span>
+      <span class="cp">}</span>
+    <span class="cp">],</span>
+    <span class="ck">"inclusion_proofs"</span><span class="cp">:</span> <span class="cp">[</span>
+      <span class="cp">{</span>
+        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"policy"</span><span class="cp">,</span>
+        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"policy.trading-limits"</span><span class="cp">,</span>
+        <span class="ck">"leaf_hash"</span><span class="cp">:</span> <span class="cv">"2a7b9c1d4e5f67890abcdef1234567890abcdef1234567890abcdef12345678"</span><span class="cp">,</span>
+        <span class="ck">"proof_path"</span><span class="cp">:</span> <span class="cp">[</span>
+          <span class="cp">{</span>
+            <span class="ck">"sibling_hash"</span><span class="cp">:</span> <span class="cv">"5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f"</span><span class="cp">,</span>
+            <span class="ck">"sibling_position"</span><span class="cp">:</span> <span class="cv">"right"</span>
+          <span class="cp">},</span>
+          <span class="cp">{</span>
+            <span class="ck">"sibling_hash"</span><span class="cp">:</span> <span class="cv">"9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"</span><span class="cp">,</span>
+            <span class="ck">"sibling_position"</span><span class="cp">:</span> <span class="cv">"left"</span>
+          <span class="cp">}</span>
+        <span class="cp">]</span>
+      <span class="cp">}</span>
+    <span class="cp">]</span>
+  <span class="cp">},</span>
+  <span class="ck">"annotations"</span><span class="cp">:</span> <span class="cp">{</span>
+    <span class="ck">"regulatory_framework"</span><span class="cp">:</span> <span class="cv">"SEC Rule 15c3-5"</span><span class="cp">,</span>
+    <span class="ck">"review_required"</span><span class="cp">:</span> <span class="cb">true</span>
+  <span class="cp">},</span>
+  <span class="ck">"spec_version"</span><span class="cp">:</span> <span class="cv">"0.10.0"</span>
+<span class="cp">}</span></code></pre>
       </div>
     </div>
   </section>

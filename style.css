@@ -535,6 +535,8 @@ img { max-width: 100%; }
 .ck { color: var(--code-key); }
 .cv { color: var(--code-val); }
 .cn { color: var(--code-num); }
+.cb { color: #f38ba8; }
+.cp { color: #b4befe; }
 .cc { color: var(--code-comment); }
 
 /* ============================================================
