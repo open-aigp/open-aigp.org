@@ -30,7 +30,7 @@
       </a>
       <div class="nav-links">
         <a href="https://github.com/open-aigp/aigp/blob/main/spec/aigp-spec.md" target="_blank">Specification</a>
-        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank">Python SDK</a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks" target="_blank">SDKs</a>
         <a href="https://github.com/open-aigp/aigp/blob/main/schema/aigp-event.schema.json" target="_blank">Schema</a>
         <a href="https://github.com/open-aigp/aigp/discussions" target="_blank">Community</a>
         <a href="https://github.com/open-aigp/aigp" target="_blank" class="nav-github">
@@ -631,7 +631,8 @@
     <div class="section-inner">
       <div class="section-header">
         <span class="section-tag">Get Started</span>
-        <h2>Five lines to your first governance event</h2>
+        <h2>Integrate AIGP in under 30 seconds</h2>
+        <p>Choose your SDK, emit one event, and you have cryptographic governance proof linked to your trace context.</p>
       </div>
       <div class="code-showcase">
         <div class="code-header">
@@ -640,27 +641,32 @@
           </div>
           <span class="code-filename">quickstart.py</span>
         </div>
-        <pre class="code-block"><code><span class="cc">from</span> aigp_otel <span class="cc">import</span> AIGPInstrumentor
+        <pre class="code-block"><code>from aigp import AIGPInstrumentor
 
-instrumentor = AIGPInstrumentor(
-    agent_id=<span class="cv">"agent.trading-bot-v2"</span>,
-    org_id=<span class="cv">"org.finco"</span>,
-    event_callback=send_to_store,
+instrumentor = AIGPInstrumentor(agent_id="agent.trading-bot-v2")
+
+event = instrumentor.emit(
+    "INJECT_SUCCESS",
+    policy_name="policy.trading-limits",
+    policy_version=4,
+    content="Max position: $10M",
 )
 
-event = instrumentor.inject_success(
-    policy_name=<span class="cv">"policy.trading-limits"</span>,
-    policy_version=<span class="cn">4</span>,
-    content=<span class="cv">"Max position: $10M..."</span>,
-    data_classification=<span class="cv">"confidential"</span>,
-)
-<span class="cc"># -> AIGP event sent to governance store</span>
-<span class="cc"># -> OTel span event with aigp.* attributes</span></code></pre>
+print(event["event_type"], event["governance_hash"])</code></pre>
       </div>
       <div class="getstarted-actions">
-        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank" class="btn btn-primary">Python SDK</a>
-        <a href="https://github.com/open-aigp/aigp/tree/main/examples" target="_blank" class="btn btn-secondary">Example Events</a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks" target="_blank" class="btn btn-primary">All SDKs</a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank" class="btn btn-secondary">Python Quickstart</a>
         <a href="https://github.com/open-aigp/aigp/blob/main/schema/aigp-event.schema.json" target="_blank" class="btn btn-secondary">JSON Schema</a>
+      </div>
+      <div class="sdk-strip">
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank" class="sdk-chip"><span>Python</span><em>Reference</em></a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/typescript" target="_blank" class="sdk-chip"><span>TypeScript</span><em>Core</em></a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/go" target="_blank" class="sdk-chip"><span>Go</span><em>Core</em></a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/rust" target="_blank" class="sdk-chip"><span>Rust</span><em>Core</em></a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/java" target="_blank" class="sdk-chip"><span>Java</span><em>Core</em></a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/kotlin" target="_blank" class="sdk-chip"><span>Kotlin</span><em>Core</em></a>
+        <a href="https://github.com/open-aigp/aigp/tree/main/sdks/dotnet" target="_blank" class="sdk-chip"><span>.NET</span><em>Core</em></a>
       </div>
     </div>
   </section>
@@ -716,7 +722,7 @@ event = instrumentor.inject_success(
           <h4>Integrations</h4>
           <a href="https://github.com/open-aigp/aigp/tree/main/integrations/opentelemetry" target="_blank">OpenTelemetry</a>
           <a href="https://github.com/open-aigp/aigp/tree/main/integrations/openlineage" target="_blank">OpenLineage</a>
-          <a href="https://github.com/open-aigp/aigp/tree/main/sdks/python" target="_blank">Python SDK</a>
+          <a href="https://github.com/open-aigp/aigp/tree/main/sdks" target="_blank">SDKs</a>
         </div>
         <div class="footer-col">
           <h4>Community</h4>

@@ -697,6 +697,39 @@ img { max-width: 100%; }
   flex-wrap: wrap;
 }
 
+.sdk-strip {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.sdk-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.sdk-chip:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.sdk-chip span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.sdk-chip em {
+  font-size: 11px;
+  font-style: normal;
+  font-family: var(--mono);
+  color: var(--accent);
+}
+
 /* ============================================================
    Contributing
    ============================================================ */
@@ -873,13 +906,16 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 1024px) {
+  .sdk-strip { grid-template-columns: repeat(3, 1fr); }
   .events-grid { grid-template-columns: repeat(3, 1fr); }
   .usecases-grid { grid-template-columns: repeat(2, 1fr); }
   .contribute-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-links { grid-template-columns: repeat(2, 1fr); }
 }
 
+
 @media (max-width: 768px) {
+  .sdk-strip { grid-template-columns: repeat(2, 1fr); }
   .nav-links {
     display: none;
     position: absolute;
@@ -923,6 +959,7 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 480px) {
+  .sdk-strip { grid-template-columns: 1fr; }
   .standards-grid { grid-template-columns: 1fr; }
   .composable-values { flex-direction: column; gap: 12px; }
   .events-grid { grid-template-columns: 1fr; }
