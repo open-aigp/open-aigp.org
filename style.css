@@ -1056,7 +1056,7 @@ img { max-width: 100%; }
   .footer-inner {
     margin-left: max(
       var(--side-rail-reserve),
-      calc((100vw - var(--desktop-content-max) + var(--side-rail-reserve)) / 2)
+      calc((100vw - var(--desktop-content-max)) / 2)
     );
     margin-right: auto;
   }
@@ -1064,7 +1064,7 @@ img { max-width: 100%; }
   .hero-inner {
     margin-left: max(
       var(--side-rail-reserve),
-      calc((100vw - var(--desktop-hero-max) + var(--side-rail-reserve)) / 2)
+      calc((100vw - var(--desktop-hero-max)) / 2)
     );
     margin-right: auto;
   }
