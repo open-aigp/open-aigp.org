@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 36" fill="none">
+  <defs>
+    <linearGradient id="logo-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield icon -->
+  <rect x="0" y="0" width="36" height="36" rx="8" fill="url(#logo-grad-dark)"/>
+  <path
+    d="M18 7L8 12V17C8 23.5 12.08 29.5 18 31C23.92 29.5 28 23.5 28 17V12L18 7Z"
+    stroke="white"
+    stroke-width="1.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="white"
+    fill-opacity="0.15"
+  />
+  <path
+    d="M13.5 18.5L16.5 21.5L23 15"
+    stroke="white"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+
+  <!-- AIGP text (white for dark backgrounds) -->
+  <text x="44" y="25" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#ffffff" letter-spacing="-0.02em">AIGP</text>
+</svg>

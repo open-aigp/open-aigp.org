@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found - AIGP</title>
+  <script>
+    (function () {
+      var p = window.location.pathname.replace(/\/+$/, "");
+      if (p === "/community") {
+        window.location.replace("/community.html");
+      }
+    })();
+  </script>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      color: #1f2937;
+      background: #f8fafc;
+    }
+    .card {
+      max-width: 620px;
+      margin: 60px auto;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    h1 { margin-top: 0; font-size: 24px; }
+    p { line-height: 1.5; }
+    a { color: #0f766e; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Page not found</h1>
+    <p>The page you requested does not exist.</p>
+    <p><a href="/">Go to home</a></p>
+    <p><a href="/community.html">Go to Community hub</a></p>
+  </div>
+</body>
+</html>
