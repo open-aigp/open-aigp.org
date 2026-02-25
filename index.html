@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="aigp-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -160,7 +161,7 @@
           </div>
           <span class="code-filename">aigp-event.json</span>
         </div>
-        <pre class="code-block code-block-scroll"><code>{
+        <pre class="code-block code-block-scroll"><code class="language-json">{
   "spec_version": "0.11",
   "event_id": "0e58d9ff-0f7c-4ef7-8f6f-86a281e0d8fd",
   "event_type": "GOVERNANCE_PROOF",
@@ -747,7 +748,7 @@
           </div>
           <span class="code-filename">quickstart.py</span>
         </div>
-        <pre class="code-block"><code>from aigp import AIGPInstrumentor
+        <pre class="code-block"><code class="language-python">from aigp import AIGPInstrumentor
 
 instrumentor = AIGPInstrumentor(agent_id="agent.trading-bot-v2")
 
@@ -873,7 +874,13 @@ print(event["event_type"], event["governance_hash"])</code></pre>
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
   <script>
+    if (window.hljs) {
+      hljs.highlightAll();
+    }
+
     // Mobile nav toggle
     const navLinks = document.querySelector('.nav-links');
     const mobileToggle = document.querySelector('.nav-mobile-toggle');

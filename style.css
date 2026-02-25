@@ -541,6 +541,14 @@ img { max-width: 100%; }
   overflow-x: auto;
   overflow-y: auto;
 }
+.code-block code.hljs {
+  display: block;
+  background: transparent;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: inherit;
+  line-height: inherit;
+}
 
 .code-note {
   margin-top: 12px;
