@@ -195,7 +195,7 @@
   "severity": "",
 
   "governance_hash": "0f51abe5b39c4154f24c9f3e59f03f2e9f54bd22ec0f5b2f129e2c1e6149d8f0",
-  "hash_type": "sha256",
+  "hash_type": "merkle-sha256",
   "aigp_hash": "4fc778ac94db184f8375dececa60bc29be4138782f7d7bc3e9f14c910060e23f",
   "governance_merkle_tree": {
     "algorithm": "sha256",
@@ -205,79 +205,69 @@
         "resource_type": "policy",
         "resource_name": "policy.access-control-v2",
         "hash": "0f51abe5b39c4154f24c9f3e59f03f2e9f54bd22ec0f5b2f129e2c1e6149d8f0",
+        "template_hash": "e4a7126e7a8fd85a4b0bf47726be19128f4d0d0ab7ec72f11147046f8d31f189",
         "resource_metadata": {
-          "is_salted": false,
-          "salt_ref": "",
-          "is_partial": false,
-          "offset_unit": "",
-          "offset": 0
+          "is_salted": true,
+          "salt_ref": "kms://vault/salts/session-42"
         }
       },
       {
         "resource_type": "prompt",
         "resource_name": "prompt.system-instructions-v3",
-        "hash": "73b9a73fd7b2ec5e6f1f42d2a4ad62b0fb68484ef5f4d2eb4dc2915b47dc0189",
-        "resource_metadata": {
-          "is_dynamic": false,
-          "rendered": false,
-          "is_salted": false,
-          "salt_ref": "",
-          "is_partial": false,
-          "offset_unit": "",
-          "offset": 0
-        }
+        "hash": "73b9a73fd7b2ec5e6f1f42d2a4ad62b0fb68484ef5f4d2eb4dc2915b47dc0189"
       },
       {
         "resource_type": "prompt",
         "resource_name": "prompt.user-context-template-v2",
         "hash": "8a20c65255b78bc83f235e887d6bb6bf1a5ccc05b0ef2cfa8759baa2b5de1aee",
+        "template_hash": "1be70f533579f4f9d1b05622a55bfdece3dfad091a2d75636b1fb2dd7f7f5211",
         "resource_metadata": {
           "is_dynamic": true,
           "rendered": true,
-          "is_salted": false,
-          "salt_ref": "",
-          "is_partial": false,
-          "offset_unit": "",
-          "offset": 0
+          "template_engine": "jinja2",
+          "secrets_resolved": true
         }
       },
       {
         "resource_type": "tool",
         "resource_name": "tool.transaction-validator",
-        "hash": "6935d7a1995a9e7e37ab5019991de31de138a38e22e7aeaebc70ca382aa1697a",
-        "resource_metadata": {
-          "is_salted": false,
-          "salt_ref": "",
-          "is_partial": false,
-          "offset_unit": "",
-          "offset": 0
-        }
+        "hash": "6935d7a1995a9e7e37ab5019991de31de138a38e22e7aeaebc70ca382aa1697a"
       }
     ],
     "inclusion_proofs": [
-      "64725eec8917919cd93a848b8cebbc0b59d3f88263aaf9fbb1e6512d8f974883",
-      "5f888c44fd15ab92ab1ff1939107d7dc61be8655eefa0931924cc2d196f9777c",
-      "4fc778ac94db184f8375dececa60bc29be4138782f7d7bc3e9f14c910060e23f"
+      {
+        "leaf_hash": "8a20c65255b78bc83f235e887d6bb6bf1a5ccc05b0ef2cfa8759baa2b5de1aee",
+        "proof_path": [
+          {
+            "sibling_hash": "73b9a73fd7b2ec5e6f1f42d2a4ad62b0fb68484ef5f4d2eb4dc2915b47dc0189",
+            "sibling_position": "left"
+          },
+          {
+            "sibling_hash": "64725eec8917919cd93a848b8cebbc0b59d3f88263aaf9fbb1e6512d8f974883",
+            "sibling_position": "right"
+          }
+        ]
+      }
     ]
   },
   "event_signature": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImFpZ3Aua2V5LnYxIiwidHlwIjoiSldUIn0.eyJldmVudF9pZCI6IjBlNThkOWZmLTBmN2MtNGVmNy04ZjZmLTg2YTI4MWUwZDhmZCJ9.<signature>",
   "signature_key_id": "aigp.key.v1",
 
-  "metadata": {
-    "proof_type": "full_merkle_audit",
-    "verdict": "GOVERNED",
-    "hash_stable": true,
-    "delivery_count": 268,
-    "first_seen": "2026-02-25T18:10:00.000Z",
-    "regulatory_hooks": ["ISO-42001", "SOC2"],
-    "topology_type": "single",
-    "chain_verified": true,
-    "events_in_chain": 5
-  },
   "annotations": {
-    "schema": "AIGP 0.11",
-    "trace_profile": "w3c-trace-context",
-    "topology_class": "single_agent"
+    "signed": {
+      "proof_type": "full_merkle_audit",
+      "verdict": "GOVERNED",
+      "hash_stable": true,
+      "regulatory_hooks": ["ISO-42001", "SOC2"],
+      "chain_verified": true
+    },
+    "unsigned": {
+      "delivery_count": 268,
+      "first_seen": "2026-02-25T18:10:00.000Z",
+      "trace_profile": "w3c-trace-context",
+      "topology_class": "single_agent",
+      "events_in_chain": 5
+    }
   }
 }</code></pre>
       </div>
