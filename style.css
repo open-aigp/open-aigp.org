@@ -536,6 +536,12 @@ img { max-width: 100%; }
   line-height: 1.8;
   margin: 0;
 }
+.code-block-scroll {
+  max-height: 680px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
 .code-note {
   margin-top: 12px;
   font-size: 13px;

@@ -160,66 +160,127 @@
           </div>
           <span class="code-filename">aigp-event.json</span>
         </div>
-        <pre class="code-block"><code><span class="cp">{</span>
-  <span class="ck">"event_id"</span><span class="cp">:</span> <span class="cv">"a1b2c3d4-e5f6-7890-abcd-ef1234567890"</span><span class="cp">,</span>
-  <span class="ck">"event_type"</span><span class="cp">:</span> <span class="cv">"GOVERNANCE_PROOF"</span><span class="cp">,</span>
-  <span class="ck">"event_category"</span><span class="cp">:</span> <span class="cv">"governance-proof"</span><span class="cp">,</span>
-  <span class="ck">"event_time"</span><span class="cp">:</span> <span class="cv">"2026-02-19T14:30:00.123Z"</span><span class="cp">,</span>
-  <span class="ck">"agent_id"</span><span class="cp">:</span> <span class="cv">"agent.trading-bot-v2"</span><span class="cp">,</span>
-  <span class="ck">"trace_id"</span><span class="cp">:</span> <span class="cv">"4bf92f3577b34da6a3ce929d0e0e4736"</span><span class="cp">,</span>
-  <span class="ck">"sequence_number"</span><span class="cp">:</span> <span class="cn">3</span><span class="cp">,</span>
-  <span class="ck">"causality_ref"</span><span class="cp">:</span> <span class="cv">"f0e1d2c3-b4a5-6789-abcd-ef0123456789"</span><span class="cp">,</span>
-  <span class="ck">"data_classification"</span><span class="cp">:</span> <span class="cv">"confidential"</span><span class="cp">,</span>
-  <span class="ck">"governance_hash"</span><span class="cp">:</span> <span class="cv">"8dd4648db4f94db951f83bb70fa7b575533912f4fd3219d161384df2b8d523ec"</span><span class="cp">,</span>
-  <span class="ck">"hash_type"</span><span class="cp">:</span> <span class="cv">"merkle-sha256"</span><span class="cp">,</span>
-  <span class="ck">"governance_merkle_tree"</span><span class="cp">:</span> <span class="cp">{</span>
-    <span class="ck">"algorithm"</span><span class="cp">:</span> <span class="cv">"sha256"</span><span class="cp">,</span>
-    <span class="ck">"leaf_count"</span><span class="cp">:</span> <span class="cn">3</span><span class="cp">,</span>
-    <span class="ck">"leaves"</span><span class="cp">:</span> <span class="cp">[</span>
-      <span class="cp">{</span>
-        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"policy"</span><span class="cp">,</span>
-        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"policy.trading-limits"</span><span class="cp">,</span>
-        <span class="ck">"hash"</span><span class="cp">:</span> <span class="cv">"2a7b9c1d4e5f67890abcdef1234567890abcdef1234567890abcdef12345678"</span>
-      <span class="cp">},</span>
-      <span class="cp">{</span>
-        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"prompt"</span><span class="cp">,</span>
-        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"prompt.risk-analysis-v7"</span><span class="cp">,</span>
-        <span class="ck">"hash"</span><span class="cp">:</span> <span class="cv">"5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f"</span>
-      <span class="cp">},</span>
-      <span class="cp">{</span>
-        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"tool"</span><span class="cp">,</span>
-        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"tool.position-checker"</span><span class="cp">,</span>
-        <span class="ck">"hash"</span><span class="cp">:</span> <span class="cv">"9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"</span><span class="cp">,</span>
-        <span class="ck">"hash_mode"</span><span class="cp">:</span> <span class="cv">"pointer"</span><span class="cp">,</span>
-        <span class="ck">"content_ref"</span><span class="cp">:</span> <span class="cv">"s3://aigp-gov/sha256:9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"</span>
-      <span class="cp">}</span>
-    <span class="cp">],</span>
-    <span class="ck">"inclusion_proofs"</span><span class="cp">:</span> <span class="cp">[</span>
-      <span class="cp">{</span>
-        <span class="ck">"resource_type"</span><span class="cp">:</span> <span class="cv">"policy"</span><span class="cp">,</span>
-        <span class="ck">"resource_name"</span><span class="cp">:</span> <span class="cv">"policy.trading-limits"</span><span class="cp">,</span>
-        <span class="ck">"leaf_hash"</span><span class="cp">:</span> <span class="cv">"2a7b9c1d4e5f67890abcdef1234567890abcdef1234567890abcdef12345678"</span><span class="cp">,</span>
-        <span class="ck">"proof_path"</span><span class="cp">:</span> <span class="cp">[</span>
-          <span class="cp">{</span>
-            <span class="ck">"sibling_hash"</span><span class="cp">:</span> <span class="cv">"5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f"</span><span class="cp">,</span>
-            <span class="ck">"sibling_position"</span><span class="cp">:</span> <span class="cv">"right"</span>
-          <span class="cp">},</span>
-          <span class="cp">{</span>
-            <span class="ck">"sibling_hash"</span><span class="cp">:</span> <span class="cv">"9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d"</span><span class="cp">,</span>
-            <span class="ck">"sibling_position"</span><span class="cp">:</span> <span class="cv">"left"</span>
-          <span class="cp">}</span>
-        <span class="cp">]</span>
-      <span class="cp">}</span>
-    <span class="cp">]</span>
-  <span class="cp">},</span>
-  <span class="ck">"annotations"</span><span class="cp">:</span> <span class="cp">{</span>
-    <span class="ck">"regulatory_framework"</span><span class="cp">:</span> <span class="cv">"SEC Rule 15c3-5"</span><span class="cp">,</span>
-    <span class="ck">"review_required"</span><span class="cp">:</span> <span class="cb">true</span>
-  <span class="cp">},</span>
-  <span class="ck">"spec_version"</span><span class="cp">:</span> <span class="cv">"0.10.0"</span>
-<span class="cp">}</span></code></pre>
+        <pre class="code-block code-block-scroll"><code>{
+  "spec_version": "0.11",
+  "event_id": "0e58d9ff-0f7c-4ef7-8f6f-86a281e0d8fd",
+  "event_type": "GOVERNANCE_PROOF",
+  "event_category": "governance-proof",
+  "event_time": "2026-02-25T18:10:00.123Z",
+  "ingested_at": "2026-02-25T18:10:00.456Z",
+
+  "tenant_id": "tenant.4f8b6d1e9c024e1a",
+  "tenant_name": "Enterprise Tenant A",
+  "org_id": "org.global-risk-operations",
+  "org_name": "Global Risk Operations",
+  "agent_id": "agent.trade-reviewer",
+  "agent_name": "Trade Reviewer",
+
+  "trace_id": "492bb01803914901bd0655610b44fa58",
+  "span_id": "4957279025044105",
+  "parent_span_id": "0b005cdcf90c4f22",
+  "trace_flags": "01",
+  "sequence_number": 6,
+  "causality_ref": "8a2fc291-773c-4491-8ce6-02d57357a97f",
+  "parent_hash": "87109bdf96d8520e98721b8815716209eed4a513e817dd8b59805e174be55ce5",
+  "query_hash": "",
+  "previous_hash": "",
+  "source_ip": "203.0.113.42",
+  "request_method": "POST",
+  "request_path": "/v1/governance/evaluate",
+
+  "data_classification": "Internal",
+  "denial_reason": "",
+  "violation_type": "",
+  "severity": "",
+
+  "governance_hash": "0f51abe5b39c4154f24c9f3e59f03f2e9f54bd22ec0f5b2f129e2c1e6149d8f0",
+  "hash_type": "sha256",
+  "aigp_hash": "4fc778ac94db184f8375dececa60bc29be4138782f7d7bc3e9f14c910060e23f",
+  "governance_merkle_tree": {
+    "algorithm": "sha256",
+    "resource_count": 4,
+    "resources": [
+      {
+        "resource_type": "policy",
+        "resource_name": "policy.access-control-v2",
+        "hash": "0f51abe5b39c4154f24c9f3e59f03f2e9f54bd22ec0f5b2f129e2c1e6149d8f0",
+        "resource_metadata": {
+          "is_salted": false,
+          "salt_ref": "",
+          "is_partial": false,
+          "offset_unit": "",
+          "offset": 0
+        }
+      },
+      {
+        "resource_type": "prompt",
+        "resource_name": "prompt.system-instructions-v3",
+        "hash": "73b9a73fd7b2ec5e6f1f42d2a4ad62b0fb68484ef5f4d2eb4dc2915b47dc0189",
+        "resource_metadata": {
+          "is_dynamic": false,
+          "rendered": false,
+          "is_salted": false,
+          "salt_ref": "",
+          "is_partial": false,
+          "offset_unit": "",
+          "offset": 0
+        }
+      },
+      {
+        "resource_type": "prompt",
+        "resource_name": "prompt.user-context-template-v2",
+        "hash": "8a20c65255b78bc83f235e887d6bb6bf1a5ccc05b0ef2cfa8759baa2b5de1aee",
+        "resource_metadata": {
+          "is_dynamic": true,
+          "rendered": true,
+          "is_salted": false,
+          "salt_ref": "",
+          "is_partial": false,
+          "offset_unit": "",
+          "offset": 0
+        }
+      },
+      {
+        "resource_type": "tool",
+        "resource_name": "tool.transaction-validator",
+        "hash": "6935d7a1995a9e7e37ab5019991de31de138a38e22e7aeaebc70ca382aa1697a",
+        "resource_metadata": {
+          "is_salted": false,
+          "salt_ref": "",
+          "is_partial": false,
+          "offset_unit": "",
+          "offset": 0
+        }
+      }
+    ],
+    "inclusion_proofs": [
+      "64725eec8917919cd93a848b8cebbc0b59d3f88263aaf9fbb1e6512d8f974883",
+      "5f888c44fd15ab92ab1ff1939107d7dc61be8655eefa0931924cc2d196f9777c",
+      "4fc778ac94db184f8375dececa60bc29be4138782f7d7bc3e9f14c910060e23f"
+    ]
+  },
+  "event_signature": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImFpZ3Aua2V5LnYxIiwidHlwIjoiSldUIn0.eyJldmVudF9pZCI6IjBlNThkOWZmLTBmN2MtNGVmNy04ZjZmLTg2YTI4MWUwZDhmZCJ9.<signature>",
+  "signature_key_id": "aigp.key.v1",
+
+  "metadata": {
+    "proof_type": "full_merkle_audit",
+    "verdict": "GOVERNED",
+    "hash_stable": true,
+    "delivery_count": 268,
+    "first_seen": "2026-02-25T18:10:00.000Z",
+    "regulatory_hooks": ["ISO-42001", "SOC2"],
+    "topology_type": "single",
+    "chain_verified": true,
+    "events_in_chain": 5
+  },
+  "annotations": {
+    "schema": "AIGP 0.11",
+    "trace_profile": "w3c-trace-context",
+    "topology_class": "single_agent"
+  }
+}</code></pre>
       </div>
-      <p class="code-note">Leaf positions are deterministic and hash-sorted. <code>L0</code>, <code>L1</code>, and <code>L2</code> are assigned by lexicographic leaf hash order, not by resource type or input array order.</p>
+      <p class="code-note">Leaf positions are deterministic and hash-sorted. <code>L0</code>, <code>L1</code>, <code>L2</code>, and <code>L3</code> are assigned by lexicographic leaf hash order, not by resource type or input array order. Additional optional <code>resource_type</code> values include <code>context</code>, <code>memory</code>, and <code>model</code>, depending on the agent architecture.</p>
     </div>
   </section>
 
@@ -456,9 +517,9 @@
               <path fill="#bfbfbf" d="M71 214.5c7.5-26.7 20.9-50.1 38.4-68.8-5.9-4.4-29.3-22.6-30.4-36.9C77.3 85.4 100.7 6.7 100.7 6.7S30 92.8 25.1 127.6c-3.9 27.3 40.8 81.5 45.5 87v-.1h.4zm287.7-1.4v.2c0 .1.1.2.1.3 7.8-9.4 48.3-59.9 44.6-86-4.9-34.8-75.6-120.9-75.6-120.9s23.4 78.7 21.7 102.1c-1 13.7-22.3 30.8-29.4 36.2 17.5 18.4 31 41.6 38.6 68.1z"/><path fill="#566366" d="M358.7 213.2v-.2c-7.6-26.4-21.1-49.6-38.6-68.1-27.5-29-64.9-46.4-105.2-46.4v93h.1c9.9.1 17.9 8.2 17.9 18.1 0 1.2-.1 2.3-.3 3.4-1.6 8.3-8.8 14.6-17.6 14.7h-.3v34.5l-.2 163.4h3.5s38-55 58.5-70.7c24-18.4 82.2-41.2 82.2-41.2v-99.4l.3-.1c-.1-.2-.1-.5-.2-.7 0-.1 0-.2-.1-.3z"/><path fill="#7d9199" d="M214.7 262.3v-34.5c-8.3-.1-15.2-5.7-17.3-13.3-.4-1.5-.7-3.1-.7-4.8 0-10 8.1-18.1 18.1-18.1h.1V98.9c-40.5 0-78 17.5-105.5 46.8-17.5 18.6-30.9 42.1-38.4 68.8h-.3v100.7s58.2 22.8 82.2 41.2c19.9 15.3 58.3 69.4 58.3 69.4h3.6v-.1h-.2l.1-163.4z"/><path fill="#fff" d="M196.7 209.7c0 1.7.2 3.3.7 4.8 2.1 7.6 9 13.2 17.3 13.3h.3c8.7-.1 16-6.4 17.6-14.7.2-1.1.3-2.2.3-3.4 0-9.9-8-18-17.9-18.1h-.2c-10 0-18.1 8.1-18.1 18.1z"/>
             </svg>
           </div>
-          <h4>Open Policy Agent</h4>
+          <h4>Policy Engine</h4>
           <p class="standard-role">Policy Enforcement</p>
-          <p class="standard-how">Rego rules, allow/deny decisions, enforcement hash</p>
+          <p class="standard-how">Policy rules, allow/deny decisions, enforcement digest</p>
         </div>
 
         <div class="standard-card">
