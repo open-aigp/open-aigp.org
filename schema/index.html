@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIGP Schema v0.12</title>
+  <meta name="description" content="AIGP v0.12 JSON Schema (formatted and documented) for AI governance proof events.">
+  <link rel="icon" href="../aigp-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../aigp-logo.svg" alt="AIGP - AI Governance Proof" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link-item">Home</a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/spec/aigp-spec.md" target="_blank" class="nav-link-item">Specification</a>
+        <a href="/schema/" class="nav-link-item" aria-current="page">Schema</a>
+        <a href="/community.html" class="nav-link-item">Community</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">AIGP Schema &middot; v0.12</div>
+      <h1>AIGP Event Schema v0.12</h1>
+      <p class="hero-sub">Formatted JSON Schema with embedded field documentation for CloudEvents, OpenTelemetry, OpenLineage-aligned governance proof events.</p>
+      <div class="hero-actions">
+        <a href="/schema/aigp-event.v0.12.schema.json" class="btn btn-primary">Open JSON</a>
+        <a href="https://github.com/open-aigp/aigp/blob/main/schema/aigp-event.v0.12.schema.json" target="_blank" class="btn btn-secondary">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Documentation</span>
+        <h2>What this schema covers</h2>
+      </div>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>CloudEvents envelope alignment</h3>
+          <p><code>source</code>, <code>event_id</code>, <code>event_type</code>, and <code>event_time</code> are constrained for transport interoperability.</p>
+        </div>
+        <div class="problem-card">
+          <h3>OTel trace correlation</h3>
+          <p><code>trace_id</code>, <code>span_id</code>, <code>parent_span_id</code>, and <code>trace_flags</code> are modeled for distributed tracing joins.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Governance proof integrity</h3>
+          <p><code>governance_hash</code>, <code>aigp_hash</code>, <code>parent_hash</code>, and <code>event_signature</code> support verifiable audit trails.</p>
+        </div>
+      </div>
+
+      <h3>Required fields</h3>
+      <pre class="code-block"><code class="language-json">[
+  "spec_version",
+  "source",
+  "event_id",
+  "event_type",
+  "event_category",
+  "event_time",
+  "agent_id",
+  "trace_id",
+  "governance_hash"
+]</code></pre>
+
+      <p class="code-note">The schema is Draft 2020-12 JSON Schema and includes descriptions for all fields directly inside the JSON artifact.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../aigp-logo.svg" alt="AIGP" class="footer-logo-img">
+        <p>AI Governance Proof &mdash; an open specification by the <a href="https://github.com/open-aigp">Open AIGP Project</a>.</p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Open AIGP Contributors. Licensed under Apache 2.0.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
