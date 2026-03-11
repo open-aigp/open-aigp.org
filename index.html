@@ -684,41 +684,41 @@
     </div>
   </section>
 
-  <!-- v0.10.0 Features -->
+  <!-- v0.12 Features -->
   <section class="section" id="features">
     <div class="section-inner">
       <div class="section-header">
         <span class="section-tag">What's New</span>
-        <h2>v0.10.0 &mdash; Selective Proofs &amp; Regulated Profiles</h2>
+        <h2>v0.12 &mdash; Privacy, Streaming, and Auditor Readiness</h2>
       </div>
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           </div>
-          <h3>Merkle Inclusion Proofs</h3>
-          <p>Selective root-verifiable checks for individual governed resources via sibling proof paths.</p>
+          <h3>Salted Proof Metadata</h3>
+          <p>Optional Merkle leaf fields <code>is_salted</code> and <code>salt_ref</code> enable privacy-preserving verification without storing raw salt in events.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
           </div>
-          <h3>Conformance Profiles</h3>
-          <p>Reference HIPAA and FINRA profiles reduce rollout ambiguity for regulated AI governance programs.</p>
+          <h3>Streaming Interruption Proof</h3>
+          <p>Optional <code>is_partial</code>, <code>offset_unit</code>, and <code>offset</code> fields prove the exact point where blocked generation was interrupted.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           </div>
-          <h3>Severity-Based Signatures</h3>
-          <p>Profiles can require signed events for high/critical severity actions to strengthen non-repudiation controls.</p>
+          <h3>Auditor Finding Taxonomy</h3>
+          <p>Stable verifier finding IDs standardize failure reporting across tools: <code>SIGNATURE_VERIFICATION_FAILED</code>, <code>MERKLE_ROOT_MISMATCH</code>, and <code>INCLUSION_PROOF_INVALID</code>.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon-wrap">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
-          <h3>Audit Viewer Baseline</h3>
-          <p>Reference viewer requirements define DAG reconstruction, signature checks, and Merkle proof validation.</p>
+          <h3>Cross-SDK Parity</h3>
+          <p>Python, TypeScript, Go, Rust, Java, Kotlin, and .NET now share spec-aligned inclusion proof helpers using <code>leaf_hash</code> and <code>proof_path</code>.</p>
         </div>
       </div>
     </div>
@@ -859,7 +859,7 @@ print(event["event_type"], event["governance_hash"])</code></pre>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Open AIGP Contributors. Licensed under Apache 2.0.</p>
+        <p>&copy; 2026 Open AIGP Contributors. Licensed under Apache 2.0.</p>
         <p class="footer-disclaimer">AIGP (AI Governance Proof) is an open technical specification for AI agent governance events. It is not affiliated with, endorsed by, or related to the IAPP AI Governance Professional (AIGP) certification program.</p>
       </div>
     </div>
