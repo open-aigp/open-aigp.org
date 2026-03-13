@@ -44,8 +44,8 @@
       </div>
       <div class="problem-grid">
         <div class="problem-card">
-          <h3>CloudEvents envelope alignment</h3>
-          <p><code>source</code>, <code>event_id</code>, <code>event_type</code>, and <code>event_time</code> are constrained for transport interoperability.</p>
+          <h3>Core event contract</h3>
+          <p><code>event_id</code>, <code>event_type</code>, <code>event_category</code>, and <code>event_time</code> define the canonical AIGP event identity.</p>
         </div>
         <div class="problem-card">
           <h3>OTel trace correlation</h3>
@@ -59,15 +59,14 @@
 
       <h3>Required fields</h3>
       <pre class="code-block"><code class="language-json">[
-  "spec_version",
-  "source",
   "event_id",
   "event_type",
   "event_category",
   "event_time",
   "agent_id",
+  "governance_hash",
   "trace_id",
-  "governance_hash"
+  "sequence_number"
 ]</code></pre>
 
       <p class="code-note">The schema is Draft 2020-12 JSON Schema and includes descriptions for all fields directly inside the JSON artifact.</p>
